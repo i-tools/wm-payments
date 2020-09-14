@@ -1,0 +1,5 @@
+{
+    "require": {
+        "baibaratsky/php-webmoney": "^0.18.0"
+    }
+}
