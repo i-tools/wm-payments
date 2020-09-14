@@ -9,17 +9,24 @@ use baibaratsky\WebMoney\Signer;
 use baibaratsky\WebMoney\Request\Requester\CurlRequester;
 use baibaratsky\WebMoney\Api\X\X3;
 
+const WM_ID = '637650381411';
+const WM_PURSE = 'R340224679904';
+const WM_KEY_PASS = 'Uc0joW89';
+
 $webMoney = new WebMoney(new CurlRequester);
 
 $request = new Request();
-$request->setSignerWmid('637650381411'); // WMID
-$request->setPurse('R340224679904'); // КОшелек
+$request->setSignerWmid(WM_ID);
+$request->setPurse(WM_PURSE);
 $request->setStartDateTime(new DateTime('-1 month'));
 $request->setEndDateTime(new DateTime('now'));
 
-$request->sign(
-    new Signer('637650381411', './key/637650381411.kwm', 'Uc0joW89')
-);
+try {
+    $request->sign(
+        new Signer(WM_ID, './key/' . WM_ID . '.kwm', WM_KEY_PASS)
+    );
+} catch (Exception $e) {
+}
 
 if ($request->validate()) {
     /** @var X3\Response $response */
